@@ -59,4 +59,43 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('#login-form').on('submit', function(event) {
+        event.preventDefault();
+    
+        const nombre = $('#usuario').val().trim();
+        const contraseña = $('#contrasenia').val().trim();
+    
+        // Verificar que se hayan ingresado los datos
+        if (!nombre || !contraseña) {
+            return alert("Por favor, completa todos los campos.");
+        }
+    
+        // Realiza la consulta filtrando por usuario
+        $.ajax({
+            url: `http://localhost:3000/clubs?nombre=${nombre}`,
+            method: 'GET',
+            contentType: 'application/json',
+            success: function(respuesta) {
+                const mostrarDiv = $('#tarjetaInfo1'); // Seleccionar el div donde se mostrará el club
+            mostrarDiv.empty();
+                if (respuesta.length === 0) {
+                    return alert("Usuario no encontrado.");
+                }
+                console.log(respuesta[0]);
+                const usuarioEncontrado = respuesta[0];
+                if (usuarioEncontrado.contrasenia === contraseña) {
+                    localStorage.setItem('club', JSON.stringify(usuarioEncontrado));
+                    window.location.href = 'index.html'; 
+                   
+                } else {
+                    alert("Contraseña incorrecta.");
+                }
+            },
+            error: function(xhr) {
+                console.error('Error al iniciar sesión:', xhr.responseText);
+                alert('Hubo un error al intentar iniciar sesión. Por favor, inténtalo de nuevo más tarde.');
+            }
+        });
+    });
 });
