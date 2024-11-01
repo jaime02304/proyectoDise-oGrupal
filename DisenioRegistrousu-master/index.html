@@ -75,57 +75,18 @@
       </div>
     </div>
 
-    <div class="input-boton-container">
+    <form class="input-boton-container" id="input-boton-container">
       <input
         id="borrarV"
         type="text"
         placeholder="Escribe nombreClub/Borrar"
         class="input-text"
       />
-      <button id="boton" onclick="Borrar()" disabled class="boton-enviar">
-        Borrar
-      </button>
-    </div>
+      <button id="botonD" class="boton-enviar">Borrar</button>
+    </form>
+
+    <script src="java.js"></script>
     <script>
-      const input = document.getElementById("borrarV");
-      const button = document.getElementById("boton");
-
-      input.addEventListener("input", function () {
-        // Verifica si el valor termina con '/borrar'
-        if (input.value.trim().endsWith("/borrar")) {
-          button.disabled = false; // Habilita el botón
-        } else {
-          button.disabled = true; // Deshabilita el botón
-        }
-      });
-
-      function Borrar() {
-        alert("Botón Borrar presionado");
-        // Aquí puedes agregar la lógica para borrar
-      }
-
-      $(document).ready(function () {
-        const usuario = JSON.parse(localStorage.getItem("club")); // Obtener el usuario del localStorage
-        const mostrarDiv = $("#tarjetaInfo1"); // Seleccionar el contenedor
-
-        if (usuario) {
-          // Limpiar el contenedor
-          mostrarDiv.empty();
-
-          // Crear un mensaje con la información del usuario
-          const contenido = `
-            <h2>Información del Usuario</h2>
-            <p><strong>Nombre:</strong> ${usuario.nombre}</p>
-            <p><strong>Email:</strong> ${usuario.email}</p>
-            <p><strong>Otro Campo:</strong> ${usuario.otroCampo}</p> <!-- Cambia 'otroCampo' por cualquier otra propiedad del usuario -->
-        `;
-
-          // Añadir el contenido al contenedor
-          mostrarDiv.append(contenido);
-        } else {
-          mostrarDiv.text("No hay información del usuario disponible."); // Mensaje si no hay información
-        }
-      });
     </script>
   </body>
 </html>
